@@ -1,4 +1,7 @@
 const User = require('../models/User')
+const passport = require('passport')
+
+passport.use(User.createStrategy())
 
 function register(req, res, next) {
   // Create a fresh user model
@@ -23,5 +26,6 @@ function register(req, res, next) {
 }
 
 module.exports = { 
-  register
+  register,
+  signIn: passport.authenticate('local', { session: false })
 }
