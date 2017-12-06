@@ -5,7 +5,9 @@
 
  server.use(bodyParser.json()) //Allows json uploads
 
-server.use('/', [])
+server.use('/', [
+  require('./routes/products'),
+])
 
  server.listen(7000, (error) => {
    console.log('Server started at http://localhost:7000')
