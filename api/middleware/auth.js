@@ -1,5 +1,11 @@
 const User = require('../models/User')
 const passport = require('passport')
+const JWT = require('jsonwebtoken')
+const PassportJwt = require('passport-jwt')
+
+const jwtSecret = 'kj3VUesqPgq07TUx+99FDhApUSURrKfh9QnTnK/WCALnQHazIAgE9Qiyj3OtKXhW'
+const jwtAlgorithm = 'HS256'
+const jwtExpiry = '7 days'
 
 passport.use(User.createStrategy())
 
@@ -25,7 +31,50 @@ function register(req, res, next) {
   })
 }
 
+passport.use(new PassportJwt.Strategy({
+    jwtFromRequest: PassportJwt.ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: jwtSecret,
+    algorithms: [jwtAlgorithm]
+  },
+  // When we have verified token
+  (payload, done) => {
+    // Find the real user from database using the id in the JWT
+    User.findById(payload.sub)
+      .then((user) => {
+        if (user) {
+          done(null, user)
+        }
+        else {
+          done(null, false)
+        }
+      })
+      .catch((error) => {
+        done(error, false)
+      })
+  }
+))
+
+function signJWTForUser(req, res) {
+  const user = req.user
+  const token = JWT.sign(
+    {
+    email: user.email
+    },
+    jwtSecret,
+    {
+      algorithm: jwtAlgorithm,
+      expiresIn: jwtExpiry,
+      subject: user._id.toString()
+    }
+  )
+
+  res.json({ token })
+}
+
 module.exports = { 
+  initialize: passport.initialize(),
   register,
-  signIn: passport.authenticate('local', { session: false })
+  signIn: passport.authenticate('local', { session: false }),
+  requireJWT: passport.authenticate('jwt', { session: false }),
+  signJWTForUser
 }

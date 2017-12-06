@@ -1,9 +1,11 @@
- const express = require('express')
- const bodyParser = require('body-parser')
+const express = require('express')
+const bodyParser = require('body-parser')
+const authMiddleware = require('./middleware/auth')
 
- const server = express()
+const server = express()
 
- server.use(bodyParser.json()) //Allows json uploads
+server.use(bodyParser.json()) //Allows json uploads
+server.use(authMiddleware.initialize)
 
 server.use('/', [
   require('./routes/products'),
