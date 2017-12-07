@@ -2,11 +2,11 @@ import React from 'react'
 
 function Product({
   brandName,
-  productName
+  name
 }) {
   return (
     <div>
-      <h2>{productName}</h2>
+      <h2>{name}</h2>
       <p>{brandName}</p>
     </div>
   )

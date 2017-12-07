@@ -3,8 +3,9 @@ import './App.css';
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import Product from './components/Product'
+import CreateProduct from './components/CreateProduct'
 import { signUp, signIn, signOutNow } from './api/auth'
-import { listProducts} from './api/products'
+import { listProducts, createProduct } from './api/products'
 import { getDecodedToken } from './api/token'
 
 class App extends Component {
@@ -32,6 +33,10 @@ class App extends Component {
     this.setState({ decodedToken: null })
   }
 
+  createNewProduct = ({brandName, name}) => {
+    createProduct({brandName, name})
+  }
+
   render() {
     const { decodedToken, products } = this.state
     const signedIn = !!decodedToken
@@ -54,9 +59,11 @@ class App extends Component {
               <h2>Products</h2>
               {
                 products.map((product) => (
-                  <Product brandName={product.brandName} productName={product.name} />
+                  <Product brandName={product.brandName} name={product.name} />
                 ))
               }
+              <h1>New Product</h1>
+              <CreateProduct createNewProduct={ this.createNewProduct }/>
             </div>
           ) : (
             <div>

@@ -18,7 +18,7 @@ router.post('/products', (req, res) => {
   const attributes = req.body
   Product.create(attributes)
     .then((product) => {
-        res.status(201).json(product)
+      res.status(201).json(product)
     })
     .catch((error) => {
       res.status(400).json({ error: error })
