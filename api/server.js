@@ -1,10 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const authMiddleware = require('./middleware/auth')
 
 const server = express()
 
 server.use(bodyParser.json()) //Allows json uploads
+server.use(cors()) //Allow other origins to access us i.e. our react front-end
 server.use(authMiddleware.initialize)
 
 server.use('/', [
