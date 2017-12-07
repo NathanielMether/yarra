@@ -14,7 +14,7 @@ router.get('/products', authMiddleware.requireJWT, (req, res) => {
     })
 })
 
-router.post('/products', (req, res) => {
+router.post('/products', authMiddleware.requireJWT, (req, res) => {
   const attributes = req.body
   Product.create(attributes)
     .then((product) => {
@@ -28,7 +28,7 @@ router.post('/products', (req, res) => {
 router.patch('/products/:id', (req, res) => {
   const id = req.params.id
   const attributes = req.body
-  Product.findByIdAndUpdate({_id: id}, {$set: {name: attributes.name}}, {new: true, runValidators: true})
+  Product.findByIdAndUpdate({_id: id}, req.body, {new: true, runValidators: true})
     .then((updatedProduct) => {
       res.status(201).json(updatedProduct)
     })

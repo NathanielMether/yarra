@@ -25,6 +25,7 @@ class App extends Component {
     signIn({ email, password })
       .then((decodedToken) => {    
         this.setState({ decodedToken })
+        this.load()
       })
   }
 
@@ -35,12 +36,14 @@ class App extends Component {
 
   createNewProduct = ({brandName, name}) => {
     createProduct({brandName, name})
+      .then(() => {
+        this.load()
+      })
   }
 
   render() {
     const { decodedToken, products } = this.state
     const signedIn = !!decodedToken
-    console.log(products)
 
     return (
       <div className="App">
@@ -77,7 +80,7 @@ class App extends Component {
     );
   }
 
-  componentDidMount() {
+  load() {
     listProducts()
       .then((products) => {
         this.setState({ products: products})
@@ -85,6 +88,10 @@ class App extends Component {
       .catch((error) => {
         console.log('error loading products', error)
       })
+  }
+
+  componentDidMount() {
+    this.load()
   }
 }
 
