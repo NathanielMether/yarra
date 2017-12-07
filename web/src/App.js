@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import './App.css';
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
+import Product from './components/Product'
 import { signUp, signIn, signOutNow } from './api/auth'
 import { listProducts} from './api/products'
 import { getDecodedToken } from './api/token'
 
 class App extends Component {
   state = {
-    decodedToken: getDecodedToken()
+    decodedToken: getDecodedToken(),
+    products: []
   }
 
   onSignUp = ({ firstName, lastName, email, password}) => {
@@ -31,8 +33,9 @@ class App extends Component {
   }
 
   render() {
-    const { decodedToken } = this.state
+    const { decodedToken, products } = this.state
     const signedIn = !!decodedToken
+    console.log(products)
 
     return (
       <div className="App">
@@ -47,6 +50,13 @@ class App extends Component {
               <button onClick={ this.onSignOut }>
                 Sign Out
               </button>
+
+              <h2>Products</h2>
+              {
+                products.map((product) => (
+                  <Product brandName={product.brandName} productName={product.name} />
+                ))
+              }
             </div>
           ) : (
             <div>
@@ -63,7 +73,7 @@ class App extends Component {
   componentDidMount() {
     listProducts()
       .then((products) => {
-        console.log(products)
+        this.setState({ products: products})
       })
       .catch((error) => {
         console.log('error loading products', error)
