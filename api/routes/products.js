@@ -25,4 +25,16 @@ router.post('/products', (req, res) => {
     })
 })
 
+router.patch('/products/:id', (req, res) => {
+  const id = req.params.id
+  const attributes = req.body
+  Product.findByIdAndUpdate({_id: id}, {$set: {name: attributes.name}}, {new: true, runValidators: true})
+    .then((updatedProduct) => {
+      res.status(201).json(updatedProduct)
+    })
+    .catch((error) => {
+      res.status(400).json({ error: error })
+    })
+})
+
 module.exports = router

@@ -32,3 +32,13 @@ Content-Type: application/json
   "brandName": "Coders R' Us",
   "name": "Nisal Comic Book"
 }
+
+### 
+
+PATCH   http://localhost:7000/products/5a28d2d32435e4302d28376f
+Content-Type: application/json
+
+{
+  "brandName": "Coders R' Us",
+  "name": "Nisal Costume"
+}
