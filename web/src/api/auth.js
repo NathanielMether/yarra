@@ -1,6 +1,10 @@
 import api, { setToken } from './init'
 import { getDecodedToken } from './token'
 
+export function signUp({ firstName, lastName, email, password}) {
+  return api.post('/auth/register', { firstName, lastName, email, password})
+}
+
 export function signIn({ email, password }) {
   return api.post('/auth', { email, password })
     .then((res) => {

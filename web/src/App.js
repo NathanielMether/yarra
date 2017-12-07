@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
 import SignInForm from './components/SignInForm'
-import { signIn, signOutNow } from './api/auth'
+import SignUpForm from './components/SignUpForm'
+import { signUp, signIn, signOutNow } from './api/auth'
 import { listProducts} from './api/products'
 import { getDecodedToken } from './api/token'
 
 class App extends Component {
   state = {
     decodedToken: getDecodedToken()
+  }
+
+  onSignUp = ({ firstName, lastName, email, password}) => {
+    signUp({ firstName, lastName, email, password})
+      .then(() => {
+        this.onSignIn({email, password})
+      })
   }
 
   onSignIn = ({ email, password}) => {
@@ -41,9 +49,11 @@ class App extends Component {
               </button>
             </div>
           ) : (
-            <SignInForm
-              onSignIn={ this.onSignIn }
-            />
+            <div>
+              <SignInForm onSignIn={ this.onSignIn }/>
+              <p>Or Sign Up</p>
+              <SignUpForm onSignUp={ this.onSignUp }/>
+            </div>
           )
         }
       </div>
