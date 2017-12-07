@@ -22,3 +22,13 @@ Content-Type: application/json
   "email": "example@test.com",
   "password": "password"
 }
+
+### 
+
+POST  http://localhost:7000/products
+Content-Type: application/json
+
+{
+  "brandName": "Coders R' Us",
+  "name": "Nisal Comic Book"
+}
