@@ -49,3 +49,14 @@ GET http://localhost:7000/wishlist
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAdGVzdC5jb20iLCJpYXQiOjE1MTI1MzQ2NzQsImV4cCI6MTUxMzEzOTQ3NCwic3ViIjoiNWEyNzUxODY0YmIyOTBlYjJlYTcwYzBmIn0.MFtt_Q_wZLhP3-p4LNVOwU9t8PgqstDlIDTaxMeBLs4
 
 ### 
+
+POST http://localhost:7000/wishlist/products/5a274257159852e512730dfe
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAdGVzdC5jb20iLCJpYXQiOjE1MTI1MzQ2NzQsImV4cCI6MTUxMzEzOTQ3NCwic3ViIjoiNWEyNzUxODY0YmIyOTBlYjJlYTcwYzBmIn0.MFtt_Q_wZLhP3-p4LNVOwU9t8PgqstDlIDTaxMeBLs4
+
+### 
+
+
+DELETE  http://localhost:7000/wishlist/products/5a274257159852e512730dfe
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV4YW1wbGVAdGVzdC5jb20iLCJpYXQiOjE1MTI1MzQ2NzQsImV4cCI6MTUxMzEzOTQ3NCwic3ViIjoiNWEyNzUxODY0YmIyOTBlYjJlYTcwYzBmIn0.MFtt_Q_wZLhP3-p4LNVOwU9t8PgqstDlIDTaxMeBLs4
+
+### 

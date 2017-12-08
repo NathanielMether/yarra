@@ -20,4 +20,36 @@ router.get('/wishlist', requireJWT, (req, res) => {
     })
 })
 
+// Add product to wishlist
+router.post('/wishlist/products/:productID', requireJWT, (req, res) => {
+  const { productID } = req.params
+  WishList.findOneAndUpdate(
+    { user: req.user}, 
+    { $addToSet: { products: productID } }, 
+    { upsert: true, new: true, runValidators: true}
+  )
+    .then((wishlist) => {
+      res.json({ products: wishlist.products })
+    })
+    .catch((error) => {
+      res.status(400).json({ error })
+    })
+})
+
+// Remove product from wishlist
+router.delete('/wishlist/products/:productID', requireJWT, (req, res) => {
+  const { productID } = req.params
+  WishList.findOneAndUpdate(
+    { user: req.user}, 
+    { $pull: { products: productID } }, 
+    { upsert: true, new: true, runValidators: true}
+  )
+    .then((wishlist) => {
+      res.json({ products: wishlist.products })
+    })
+    .catch((error) => {
+      res.status(400).json({ error })
+    })
+})
+
 module.exports = router
