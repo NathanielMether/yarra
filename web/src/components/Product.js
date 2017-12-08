@@ -2,7 +2,8 @@ import React from 'react'
 
 function Product({
   brandName,
-  name
+  name,
+  onEdit
 }) {
   return (
     <div>

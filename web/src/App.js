@@ -3,7 +3,7 @@ import './App.css';
 import SignInForm from './components/SignInForm'
 import SignUpForm from './components/SignUpForm'
 import Product from './components/Product'
-import CreateProduct from './components/CreateProduct'
+import ProductForm from './components/ProductForm'
 import { signUp, signIn, signOutNow } from './api/auth'
 import { listProducts, createProduct } from './api/products'
 import { getDecodedToken } from './api/token'
@@ -66,7 +66,7 @@ class App extends Component {
                 ))
               }
               <h1>New Product</h1>
-              <CreateProduct createNewProduct={ this.createNewProduct }/>
+              <ProductForm onSubmit={ this.createNewProduct } submitTitle='Create'/>
             </div>
           ) : (
             <div>

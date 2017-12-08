@@ -1,7 +1,8 @@
 import React from 'react'
 
-function CreateProduct({
-  createNewProduct
+function ProductForm({
+  submitTitle,
+  onSubmit
 }) {
   return (
     <form 
@@ -11,7 +12,7 @@ function CreateProduct({
         const elements = event.target.elements // get form attributes
         const brandName = elements.brandName.value
         const name = elements.name.value
-        createNewProduct({ brandName, name})
+        onSubmit({ brandName, name})
       }}
     >
       <label className='mb-2'>
@@ -29,10 +30,10 @@ function CreateProduct({
         />
       </label>
       <button>
-        List a new Product
+        { submitTitle }
       </button>
     </form>
   )
 }
 
-export default CreateProduct
+export default ProductForm
