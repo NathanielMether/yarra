@@ -6,6 +6,7 @@ const router = express.Router()
 
 router.get('/wishlist', requireJWT, (req, res) => {
   WishList.findOne({ user: req.user })
+    .populate('products')
     .then((wishlist) => {
       if (wishlist) {
         res.json({ products: wishlist.products })
@@ -28,6 +29,7 @@ router.post('/wishlist/products/:productID', requireJWT, (req, res) => {
     { $addToSet: { products: productID } }, 
     { upsert: true, new: true, runValidators: true}
   )
+    .populate('products')
     .then((wishlist) => {
       res.json({ products: wishlist.products })
     })
@@ -44,6 +46,7 @@ router.delete('/wishlist/products/:productID', requireJWT, (req, res) => {
     { $pull: { products: productID } }, 
     { upsert: true, new: true, runValidators: true}
   )
+    .populate('products')
     .then((wishlist) => {
       res.json({ products: wishlist.products })
     })
